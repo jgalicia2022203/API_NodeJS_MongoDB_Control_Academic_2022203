@@ -1,18 +1,15 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-
 const { validateFields } = require("../middlewares/validate-fields");
-
+const { existsProfessorById } = require("../helpers/db-validators");
 const {
-  professorsPost,
   putProfessors,
-  professorsDelete,
   professorsGet,
   getProfessorById,
+  professorsDelete,
+  registerProfessor,
+  loginProfessor,
 } = require("../controllers/professor.controller");
-
-const { existsProfessorById } = require("../helpers/db-validators");
-
 const router = Router();
 
 router.get("/", professorsGet);
@@ -29,20 +26,31 @@ router.get(
 
 router.put(
   "/:id",
-  [check("id", "isn't a valid id").isMongoId(), validateFields],
+  [
+    check("id", "isn't a valid id").isMongoId(),
+    check("courses.*", "course id must be a valid MongoDB ID").isMongoId(),
+    validateFields,
+  ],
   putProfessors
 );
 
 router.post(
-  "/",
+  "/register",
   [
     check("name", "name cannot be empty").not().isEmpty(),
     check("email", "email cannot be empty").not().isEmpty(),
     check("password", "password cannot be empty").not().isEmpty(),
-    check("role", "role cannot be empty").not().isEmpty(),
     validateFields,
   ],
-  professorsPost
+  registerProfessor
+);
+router.post(
+  "/login",
+  [
+    check("email", "email cannot be empty").not().isEmpty(),
+    check("password", "password cannot be empty").not().isEmpty(),
+  ],
+  loginProfessor
 );
 
 router.delete(

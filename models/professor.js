@@ -5,7 +5,6 @@ const ProfessorSchema = Schema({
     type: String,
     required: [true, "name is obligatory"],
   },
-
   email: {
     type: String,
     required: [true, "email is obligatory"],

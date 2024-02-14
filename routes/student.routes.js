@@ -1,21 +1,29 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-
 const { validateFields } = require("../middlewares/validate-fields");
-
+const { existsStudentById } = require("../helpers/db-validators");
 const {
-  studentsPost,
   putStudents,
-  studentsDelete,
   studentsGet,
   getStudentById,
+  getStudentCourses,
+  register,
+  login,
+  deleteStudentProfile,
 } = require("../controllers/student.controller");
-
-const { existsStudentById } = require("../helpers/db-validators");
-
 const router = Router();
 
 router.get("/", studentsGet);
+
+router.get(
+  "/:id/courses",
+  [
+    check("id", "isn't a valid id").isMongoId(),
+    check("id").custom(existsStudentById),
+    validateFields,
+  ],
+  getStudentCourses
+);
 
 router.get(
   "/:id",
@@ -28,22 +36,33 @@ router.get(
 );
 
 router.put(
-  "/:id",
-  [check("id", "isn't a valid id").isMongoId(), validateFields],
+  "/:id/courses",
+  [
+    check("id", "isn't a valid id").isMongoId(),
+    check("courses.*", "course id must be a valid MongoDB ID").isMongoId(),
+    validateFields,
+  ],
   putStudents
 );
 
 router.post(
-  "/",
+  "/register",
   [
     check("name", "name cannot be empty").not().isEmpty(),
     check("email", "email cannot be empty").not().isEmpty(),
     check("password", "password cannot be empty").not().isEmpty(),
-    check("role", "role cannot be empty").not().isEmpty(),
-    check("courses", "courses cannot be empty").not().isEmpty(),
     validateFields,
   ],
-  studentsPost
+  register
+);
+router.post(
+  "/login",
+  [
+    check("email", "email cannot be empty").not().isEmpty(),
+    check("password", "password cannot be empty").not().isEmpty(),
+    validateFields,
+  ],
+  login
 );
 
 router.delete(
@@ -53,7 +72,7 @@ router.delete(
     check("id").custom(existsStudentById),
     validateFields,
   ],
-  studentsDelete
+  deleteStudentProfile
 );
 
 module.exports = router;

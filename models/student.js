@@ -28,4 +28,8 @@ const StudentSchema = Schema({
   ],
 });
 
+StudentSchema.path("courses").validate(function (courses) {
+  return courses.length <= 3;
+}, "Student can have maximum of 3 courses");
+
 module.exports = model("Student", StudentSchema);

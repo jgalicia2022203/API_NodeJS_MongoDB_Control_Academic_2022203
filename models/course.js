@@ -21,4 +21,11 @@ const CourseSchema = new Schema({
   ],
 });
 
+// Método para verificar si un estudiante está asignado a este curso
+CourseSchema.methods.isStudentAssigned = function (studentId) {
+  return this.students.some(
+    (student) => student.toString() === studentId.toString()
+  );
+};
+
 module.exports = model("Course", CourseSchema);
