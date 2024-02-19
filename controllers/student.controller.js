@@ -74,7 +74,7 @@ const register = async (req, res) => {
       return res.status(400).json({ msg: "Email already registered" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
     const student = new Student({
       name,
       email,
@@ -99,7 +99,7 @@ const login = async (req, res) => {
       return res.status(400).json({ msg: "Invalid credentials" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, student.password);
+    const isPasswordValid = await bcryptjs.compare(password, student.password);
     if (!isPasswordValid) {
       return res.status(400).json({ msg: "Invalid credentials" });
     }

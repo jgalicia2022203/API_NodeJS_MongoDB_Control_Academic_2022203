@@ -37,7 +37,7 @@ router.post(
   [
     check("name", "name cannot be empty").not().isEmpty(),
     check("description", "description cannot be empty").not().isEmpty(),
-    check("students", "students cannot be empty").not().isEmpty(),
+    check("teacher", "teacher cannot be empty").not().isEmpty(),
     validateFields,
   ],
   protect,
