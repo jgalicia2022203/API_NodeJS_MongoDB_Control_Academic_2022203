@@ -9,13 +9,14 @@ class Server {
     this.studentPath = "/api/students";
     this.professorPath = "/api/professors";
     this.coursePath = "/api/courses";
+    this.authPath = "/api/auth";
 
-    this.connectDB();
+    this.conectarDB();
     this.middlewares();
     this.routes();
   }
 
-  async connectDB() {
+  async conectarDB() {
     await dbConnection();
   }
 
@@ -29,11 +30,12 @@ class Server {
     this.app.use(this.studentPath, require("../routes/student.routes"));
     this.app.use(this.professorPath, require("../routes/professor.routes"));
     this.app.use(this.coursePath, require("../routes/course.routes"));
+    this.app.use(this.authPath, require("../routes/auth.routes"));
   }
 
   listen() {
     this.app.listen(this.port, () => {
-      console.log("Server executing and listening in port", this.port);
+      console.log("Servidor ejecutándose y escuchando el puerto", this.port);
     });
   }
 }

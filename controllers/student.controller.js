@@ -1,5 +1,4 @@
 const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const Student = require("../models/student");
 const { response } = require("express");
 
@@ -19,50 +18,18 @@ const studentsGet = async (req, res = response) => {
 };
 
 const getStudentById = async (req, res) => {
-  const { id } = req.params;
+  const id = req.user.id;
   const student = await Student.findOne({ _id: id });
+
+  if (!student) {
+    return res.status(400).json({
+      msg: "id doesn't exist in database",
+    });
+  }
 
   res.status(200).json({
     student,
   });
-};
-
-const putStudents = async (req, res) => {
-  const { id } = req.params;
-  const { courses: courseIds } = req.body;
-
-  try {
-    const student = await Student.findById(id);
-    if (!student) {
-      return res.status(404).json({ msg: "Student not found" });
-    }
-
-    if (student.courses.length + courseIds.length > 3) {
-      return res
-        .status(400)
-        .json({ msg: "Student cannot be assigned more than 3 courses" });
-    }
-
-    const alreadyAssignedCourses = student.courses.filter((course) =>
-      courseIds.includes(course)
-    );
-    if (alreadyAssignedCourses.length > 0) {
-      return res.status(400).json({
-        msg: "Student is already assigned to one or more of these courses",
-      });
-    }
-
-    student.courses.push(...courseIds);
-    await student.save();
-
-    res.status(200).json({
-      msg: "Courses successfully assigned to student",
-      student,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ msg: "Internal Server Error" });
-  }
 };
 
 const register = async (req, res) => {
@@ -90,23 +57,44 @@ const register = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+const assignCourses = async (req, res) => {
+  const id = req.user.id;
+  const { courses: courseIds } = req.body;
+
   try {
-    const { email, password } = req.body;
-
-    const student = await Student.findOne({ email });
+    const student = await Student.findById(id);
     if (!student) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res.status(404).json({ msg: "Student not found" });
     }
 
-    const isPasswordValid = await bcryptjs.compare(password, student.password);
-    if (!isPasswordValid) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+    const uniqueCourseIds = new Set(courseIds);
+    if (uniqueCourseIds.size !== courseIds.length) {
+      return res.status(400).json({
+        msg: "Duplicate course IDs are not allowed",
+      });
     }
 
-    const token = jwt.sign({ id: student._id }, process.env.JWT_SECRET);
+    for (const courseId of uniqueCourseIds) {
+      if (student.courses.includes(courseId)) {
+        return res.status(400).json({
+          msg: "Student is already assigned to one or more of these courses",
+        });
+      }
+    }
 
-    res.status(200).json({ token });
+    if (student.courses.length + uniqueCourseIds.size > 3) {
+      return res.status(400).json({
+        msg: "Student cannot be assigned more than 3 courses",
+      });
+    }
+
+    student.courses.push(...uniqueCourseIds);
+    await student.save();
+
+    res.status(200).json({
+      msg: "Courses successfully assigned to student",
+      student,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ msg: "Internal Server Error" });
@@ -114,7 +102,7 @@ const login = async (req, res) => {
 };
 
 const getStudentCourses = async (req, res) => {
-  const { id } = req.params;
+  const id = req.user.id;
 
   try {
     const student = await Student.findById(id).populate("courses");
@@ -132,7 +120,7 @@ const getStudentCourses = async (req, res) => {
 };
 
 const updateStudentProfile = async (req, res) => {
-  const { id } = req.params;
+  const id = req.user.id;
   const { name, email, password } = req.body;
 
   try {
@@ -162,7 +150,7 @@ const updateStudentProfile = async (req, res) => {
 };
 
 const deleteStudentProfile = async (req, res) => {
-  const { id } = req.params;
+  const id = req.user.id;
 
   try {
     const deletedStudent = await Student.findByIdAndDelete(id);
@@ -177,12 +165,11 @@ const deleteStudentProfile = async (req, res) => {
 };
 
 module.exports = {
-  putStudents,
-  getStudentById,
   studentsGet,
-  getStudentCourses,
+  getStudentById,
   register,
-  login,
+  assignCourses,
+  getStudentCourses,
   updateStudentProfile,
   deleteStudentProfile,
 };

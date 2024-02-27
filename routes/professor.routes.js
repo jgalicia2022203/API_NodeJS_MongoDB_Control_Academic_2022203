@@ -1,37 +1,38 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validate-fields");
-const { existsProfessorById } = require("../helpers/db-validators");
+const { validateJWT } = require("../middlewares/validate-jwt");
+const { isAdminRole, isTeacherRole } = require("../middlewares/validate-roles");
+const { existsEmail } = require("../helpers/db-validators");
 const {
-  putProfessors,
   professorsGet,
   getProfessorById,
-  professorsDelete,
   registerProfessor,
-  loginProfessor,
+  createCourse,
+  updateCourse,
+  deleteCourse,
+  getAllCourses,
 } = require("../controllers/professor.controller");
 const router = Router();
 
-router.get("/", professorsGet);
+router.get("/", validateJWT, isAdminRole, professorsGet);
 
-router.get(
-  "/:id",
+router.get("/courses", validateJWT, isTeacherRole, getAllCourses);
+
+router.get("/profile", validateJWT, isTeacherRole, getProfessorById);
+
+router.put("/courses", validateJWT, isTeacherRole, updateCourse);
+
+router.post(
+  "/courses",
+  validateJWT,
+  isTeacherRole,
   [
-    check("id", "isn't a valid id").isMongoId(),
-    check("id").custom(existsProfessorById),
+    check("name", "name cannot be empty").not().isEmpty(),
+    check("description", "description cannot be empty").not().isEmpty(),
     validateFields,
   ],
-  getProfessorById
-);
-
-router.put(
-  "/:id",
-  [
-    check("id", "isn't a valid id").isMongoId(),
-    check("courses.*", "course id must be a valid MongoDB ID").isMongoId(),
-    validateFields,
-  ],
-  putProfessors
+  createCourse
 );
 
 router.post(
@@ -39,28 +40,13 @@ router.post(
   [
     check("name", "name cannot be empty").not().isEmpty(),
     check("email", "email cannot be empty").not().isEmpty(),
+    check("email").custom(existsEmail),
     check("password", "password cannot be empty").not().isEmpty(),
     validateFields,
   ],
   registerProfessor
 );
-router.post(
-  "/login",
-  [
-    check("email", "email cannot be empty").not().isEmpty(),
-    check("password", "password cannot be empty").not().isEmpty(),
-  ],
-  loginProfessor
-);
 
-router.delete(
-  "/:id",
-  [
-    check("id", "isn't a valid id").isMongoId(),
-    check("id").custom(existsProfessorById),
-    validateFields,
-  ],
-  professorsDelete
-);
+router.delete("/courses", validateJWT, isTeacherRole, deleteCourse);
 
 module.exports = router;

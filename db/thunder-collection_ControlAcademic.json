@@ -1,0 +1,296 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "ControlAcademic",
+    "dateExported": "2024-02-27T23:25:40.011Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "f678817b-e5ba-44b5-a0fc-cfcd34c89a23",
+            "name": "STUDENTS",
+            "containerId": "",
+            "created": "2024-02-27T21:32:06.948Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "15a4a321-d1ef-4443-8223-a32cbc08f241",
+            "name": "PROFESSORS",
+            "containerId": "",
+            "created": "2024-02-27T21:32:40.942Z",
+            "sortNum": 20000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "7d409995-633e-4d6e-bfaa-147d9ce30b13",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "15a4a321-d1ef-4443-8223-a32cbc08f241",
+            "name": "REGISTER_PROFESSOR",
+            "url": "http://localhost:3000/api/professors/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-02-27T18:51:44.241Z",
+            "modified": "2024-02-27T21:50:25.583Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\"name\": \"Braulio Echeverria\",\n\"email\": \"becheverria@kinal.org\",\n\"password\": \"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3a7c622f-6d9f-4757-b74e-16e48eca1327",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "f678817b-e5ba-44b5-a0fc-cfcd34c89a23",
+            "name": "REGISTER_STUDENT",
+            "url": "http://localhost:3000/api/students/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-02-27T21:32:10.206Z",
+            "modified": "2024-02-27T21:36:45.479Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Braulio Echeverria\",\n  \"email\": \"becheverria@kinal.edu\",\n  \"password\": \"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4fbeeac4-3de6-4d92-97fe-e7410a2a7921",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "15a4a321-d1ef-4443-8223-a32cbc08f241",
+            "name": "PROFESSOR_PROFILE",
+            "url": "http://localhost:3000/api/professors/profile",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2024-02-27T18:51:44.246Z",
+            "modified": "2024-02-27T21:54:54.315Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWRlMzA1ZmJiNGZlZTVkNjYxZmI4M2EiLCJpYXQiOjE3MDkwNzA4ODUsImV4cCI6MTcwOTA3NDQ4NX0.SjjNBpfPXh3LuqN0Qpjw_KDKO3NfRdDOQmt-HoCxajc"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3f30331f-a402-4eb9-bf54-798a8819653d",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "15a4a321-d1ef-4443-8223-a32cbc08f241",
+            "name": "PROFESSOR_COURSES",
+            "url": "http://localhost:3000/api/professors/courses",
+            "method": "GET",
+            "sortNum": 17500,
+            "created": "2024-02-27T18:51:44.249Z",
+            "modified": "2024-02-27T23:09:55.494Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWRlMzA1ZmJiNGZlZTVkNjYxZmI4M2EiLCJpYXQiOjE3MDkwNzUzNzksImV4cCI6MTcwOTA3ODk3OX0.0W88S5EVKxnC0BB9wzm2ltATijgFmCJ-jo3XOWZj6OI"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "cc954aeb-db1c-4de0-b917-4d4258ee652d",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "15a4a321-d1ef-4443-8223-a32cbc08f241",
+            "name": "REGISTER_COURSE",
+            "url": "http://localhost:3000/api/professors/courses",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-02-27T18:51:44.248Z",
+            "modified": "2024-02-27T22:35:16.825Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWRlMzA1ZmJiNGZlZTVkNjYxZmI4M2EiLCJpYXQiOjE3MDkwNzA3MDgsImV4cCI6MTcwOTA3NDMwOH0.8omDsg7ZOzx80RgzvN5GNRbipSOaYzivXOnyYm1AU3M"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"name\": \"English I\",\r\n    \"description\": \"Welcome to English I, where we will focus on developing language skills.\"\r\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b62bb0ee-7e33-4ab9-9687-e99573545843",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "f678817b-e5ba-44b5-a0fc-cfcd34c89a23",
+            "name": "STUDENT_PROFILE",
+            "url": "http://localhost:3000/api/students/profile",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-02-27T21:32:11.735Z",
+            "modified": "2024-02-27T21:32:11.735Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": ""
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "709c3773-5c28-4350-bbbf-7423ec7d92e7",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "f678817b-e5ba-44b5-a0fc-cfcd34c89a23",
+            "name": "UPDATE_STUDENT_PROFILE",
+            "url": "http://localhost:3000/api/students/profile",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-02-27T21:32:13.784Z",
+            "modified": "2024-02-27T21:38:03.480Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": ""
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"New Name\",\n  \"email\" : \"newEmail@kinal.edu\",\n  \"password\": \"newPassword\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b1daa01e-defc-4d11-a383-2be9c3e402fd",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "15a4a321-d1ef-4443-8223-a32cbc08f241",
+            "name": "UPDATE_COURSE",
+            "url": "http://localhost:3000/api/professors/courses",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-02-27T19:43:40.027Z",
+            "modified": "2024-02-27T23:25:10.519Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWRlMzA1ZmJiNGZlZTVkNjYxZmI4M2EiLCJpYXQiOjE3MDkwNzYwNzMsImV4cCI6MTcwOTA3OTY3M30.6Emgf98IuBs6HabCER6uOnLFNUJIDmDCUkXAmoddHOs"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"courseId\": \"65de639b9d44b5cdd4a84762\",\n  \"name\": \"newName\",\n  \"description\": \"newDesc\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "979181ea-380b-455f-a508-545c1ec20ffa",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "f678817b-e5ba-44b5-a0fc-cfcd34c89a23",
+            "name": "DELETE_STUDENT_PROFILE",
+            "url": "http://localhost:3000/api/students/profile",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-02-27T21:32:16.136Z",
+            "modified": "2024-02-27T21:32:16.136Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": ""
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e8c34a92-31ac-4ec1-889b-63fa34ab30be",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "15a4a321-d1ef-4443-8223-a32cbc08f241",
+            "name": "DELETE_COURSE",
+            "url": "http://localhost:3000/api/professors/courses",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-02-27T19:44:13.068Z",
+            "modified": "2024-02-27T23:22:55.721Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWRlMzA1ZmJiNGZlZTVkNjYxZmI4M2EiLCJpYXQiOjE3MDkwNzYwNzMsImV4cCI6MTcwOTA3OTY3M30.6Emgf98IuBs6HabCER6uOnLFNUJIDmDCUkXAmoddHOs"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"courseId\": \"65de5a5f6bf0442b385fa375\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "21756e27-cd05-464e-8804-7287f09b1cd6",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "f678817b-e5ba-44b5-a0fc-cfcd34c89a23",
+            "name": "GET_COURSES_STUDENTS",
+            "url": "http://localhost:3000/api/students/courses",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-02-27T21:32:18.038Z",
+            "modified": "2024-02-27T23:09:17.037Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWRlMzAyOWJiNGZlZTVkNjYxZmI4MmIiLCJpYXQiOjE3MDkwNzUzMzgsImV4cCI6MTcwOTA3ODkzOH0.VCaMl8bSSKugPHCT4TlS54fs8jwqR9cMRloyuQ9wWHg"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e8a5cb73-6860-428b-8e4d-14bf72a43cf8",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "f678817b-e5ba-44b5-a0fc-cfcd34c89a23",
+            "name": "ASSIGN_COURSES_STUDENTS",
+            "url": "http://localhost:3000/api/students/courses",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2024-02-27T21:32:19.656Z",
+            "modified": "2024-02-27T22:07:35.949Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWRlMzAyOWJiNGZlZTVkNjYxZmI4MmIiLCJpYXQiOjE3MDkwNzE2MzgsImV4cCI6MTcwOTA3NTIzOH0.r_Ddaem-XCGLtZQfjZ1ToDnwIs4xY7QHziK7cNak-z8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"courses\": [\"65de5a5f6bf0442b385fa375\"]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5869661f-2635-4b31-b2e2-820acc6c2dda",
+            "colId": "2e7ce09b-b322-4e1f-ae18-743aa05badee",
+            "containerId": "",
+            "name": "LOGIN",
+            "url": "http://localhost:3000/api/auth/login",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2024-02-27T18:51:44.244Z",
+            "modified": "2024-02-27T23:09:39.993Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"becheverria@kinal.org\",\n  \"password\": \"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

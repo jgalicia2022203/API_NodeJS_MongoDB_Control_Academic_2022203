@@ -14,11 +14,27 @@ const ProfessorSchema = Schema({
     type: String,
     required: [true, "password is obligatory"],
   },
+  status: {
+    type: Boolean,
+    default: true,
+  },
   role: {
     type: String,
     enum: ["TEACHER_ROLE"],
     default: "TEACHER_ROLE",
   },
+  courses: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Course",
+    },
+  ],
 });
+
+ProfessorSchema.methods.toJSON = function () {
+  const { __v, password, _id, ...professor } = this.toObject();
+  professor.uid = _id;
+  return professor;
+};
 
 module.exports = model("Professor", ProfessorSchema);

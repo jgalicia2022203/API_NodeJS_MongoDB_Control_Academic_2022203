@@ -14,6 +14,10 @@ const StudentSchema = Schema({
     type: String,
     required: [true, "password is obligatory"],
   },
+  status: {
+    type: Boolean,
+    default: true,
+  },
   role: {
     type: String,
     required: true,
@@ -27,5 +31,11 @@ const StudentSchema = Schema({
     },
   ],
 });
+
+StudentSchema.methods.toJSON = function () {
+  const { __v, password, _id, ...student } = this.toObject();
+  student.uid = _id;
+  return student;
+};
 
 module.exports = model("Student", StudentSchema);
